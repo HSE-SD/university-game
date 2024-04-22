@@ -1,2 +1,2 @@
 # university-game
-very cool game
+very very cool game
