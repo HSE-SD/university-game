@@ -21,6 +21,8 @@ add_executable(University_game main.cpp
         quest/quest.h
         map/game.h
         map/game.cpp
+        app_runner/buttons.h
+        app_runner/buttons.cpp
 )
 
 # Use this bad boy to create your own quests:

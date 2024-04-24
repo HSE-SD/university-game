@@ -4,6 +4,7 @@
 #include "entities/player.h"
 #include "entities/teacher.h"
 #include "map/game.h"
+#include "app_runner/buttons.h"
 #include <random>
 
 int main() {
@@ -14,105 +15,8 @@ int main() {
     sf::View standard_view(sf::FloatRect(0, 0, window.getSize().x, window.getSize().y));
     standard_view.setCenter(640, 360);
 
-    sf::Font text_font;
-    text_font.loadFromFile(path_to_font);
-
-    sf::Text head_text;
-    head_text.setFont(text_font);
-    head_text.setString("University Game");
-    head_text.setCharacterSize(50);
-    head_text.setFillColor(sf::Color::Cyan);
-    head_text.setStyle(sf::Text::Bold);
-    head_text.setPosition(450, 40);
-
-    sf::Text new_game_button_text;
-    new_game_button_text.setFont(text_font);
-    new_game_button_text.setString("Start a new game");
-    new_game_button_text.setCharacterSize(25);
-    new_game_button_text.setFillColor(sf::Color::Cyan);
-    new_game_button_text.setStyle(sf::Text::Italic);
-    new_game_button_text.setPosition(530, 200);
-
-    sf::RectangleShape new_game_button_shape;
-    new_game_button_shape.setSize(sf::Vector2f(300, 50));
-    new_game_button_shape.setPosition(490, 195);
-    new_game_button_shape.setOutlineThickness(3.f);
-    new_game_button_shape.setFillColor(sf::Color::Transparent);
-    new_game_button_shape.setOutlineColor(sf::Color::Cyan);
-
-    sf::Text load_game_button_text;
-    load_game_button_text.setFont(text_font);
-    load_game_button_text.setString("Load game");
-    load_game_button_text.setCharacterSize(25);
-    load_game_button_text.setFillColor(sf::Color::Cyan);
-    load_game_button_text.setStyle(sf::Text::Italic);
-    load_game_button_text.setPosition(570, 300);
-
-    sf::RectangleShape load_game_button_shape;
-    load_game_button_shape.setSize(sf::Vector2f(300, 50));
-    load_game_button_shape.setPosition(490, 295);
-    load_game_button_shape.setOutlineThickness(3.f);
-    load_game_button_shape.setFillColor(sf::Color::Transparent);
-    load_game_button_shape.setOutlineColor(sf::Color::Cyan);
-
-    sf::Text settings_button_text;
-    settings_button_text.setFont(text_font);
-    settings_button_text.setString("Settings");
-    settings_button_text.setCharacterSize(25);
-    settings_button_text.setFillColor(sf::Color::Cyan);
-    settings_button_text.setStyle(sf::Text::Italic);
-    settings_button_text.setPosition(580, 400);
-
-    sf::RectangleShape settings_button_shape;
-    settings_button_shape.setSize(sf::Vector2f(300, 50));
-    settings_button_shape.setPosition(490, 395);
-    settings_button_shape.setOutlineThickness(3.f);
-    settings_button_shape.setFillColor(sf::Color::Transparent);
-    settings_button_shape.setOutlineColor(sf::Color::Cyan);
-
-    sf::Text copyright_text;
-    copyright_text.setFont(text_font);
-    copyright_text.setString("by Bondar F., Mikhaylov B., Mikhaylov D., Sarantsev I., HSE AMI 2024.");
-    copyright_text.setCharacterSize(15);
-    copyright_text.setFillColor(sf::Color::Cyan);
-    copyright_text.setPosition(400, 650);
-
-    sf::Text settings_head_text;
-    settings_head_text.setFont(text_font);
-    settings_head_text.setString("Settings");
-    settings_head_text.setCharacterSize(50);
-    settings_head_text.setFillColor(sf::Color::Cyan);
-    settings_head_text.setStyle(sf::Text::Bold);
-    settings_head_text.setPosition(530, 40);
-
-    sf::Text settings_main_text;
-    settings_main_text.setFont(text_font);
-    settings_main_text.setString("Keyboard bindings: \n\n"
-                                 "~ Interact with objects/characters:        X\n"
-                                 "~ Open/close inventory/list of quests:   E\n"
-                                 "~ Leave game:                                       ESC\n"
-                                 "~ Move player:                                       Arrow keys or WASD\n"
-                                 "~ Start/end tetris minigame:                  T\n"
-                                 "~ Start/end sudoky minigame:              G\n"
-                                 "~ Start/end bugs minigame:                  B\n");
-    settings_main_text.setCharacterSize(25);
-    settings_main_text.setFillColor(sf::Color::Cyan);
-    settings_main_text.setPosition(50, 195);
-
-    sf::Text settings_back_button_text;
-    settings_back_button_text.setFont(text_font);
-    settings_back_button_text.setString("Back");
-    settings_back_button_text.setCharacterSize(25);
-    settings_back_button_text.setFillColor(sf::Color::Cyan);
-    settings_back_button_text.setStyle(sf::Text::Italic);
-    settings_back_button_text.setPosition(610, 600);
-
-    sf::RectangleShape settings_back_button_shape;
-    settings_back_button_shape.setSize(sf::Vector2f(100, 50));
-    settings_back_button_shape.setPosition(590, 595);
-    settings_back_button_shape.setOutlineThickness(3.f);
-    settings_back_button_shape.setFillColor(sf::Color::Transparent);
-    settings_back_button_shape.setOutlineColor(sf::Color::Cyan);
+    buttons buttons;
+    buttons.load();
 
     university_game::quest first_quest;
     university_game::quest second_quest;
@@ -138,7 +42,7 @@ int main() {
                                         "You've found it, right?",
                                         "Thank you, man. Appreciate that."}, third_quest.get_name());
 
-    university_game::game my_game(&window, text_font, player_1);
+    university_game::game my_game(&window, buttons.text_font, player_1);
     my_game.setPosition(40.f, 40.f);
     my_game.load_textures();
 
@@ -274,7 +178,7 @@ int main() {
                         game_started = true;
                         game_started_ever = true;
 
-                        university_game::game new_game(&window, text_font, player_1);
+                        university_game::game new_game(&window, buttons.text_font, player_1);
                         new_game.load_textures();
                         my_game = new_game;
                         my_game.setPosition(40.f, 40.f);
@@ -302,22 +206,7 @@ int main() {
                 }
             }
             window.clear();
-            if (!settings_opened) {
-                window.draw(head_text);
-                window.draw(new_game_button_text);
-                window.draw(new_game_button_shape);
-                window.draw(load_game_button_text);
-                window.draw(load_game_button_shape);
-                window.draw(settings_button_text);
-                window.draw(settings_button_shape);
-                window.draw(copyright_text);
-            } else {
-                window.draw(settings_head_text);
-                window.draw(settings_main_text);
-                window.draw(settings_back_button_text);
-                window.draw(settings_back_button_shape);
-            }
-            window.display();
+            buttons.draw(window, settings_opened);
         }
     }
 
