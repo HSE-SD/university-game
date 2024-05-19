@@ -22,7 +22,10 @@ add_executable(University_game main.cpp
         map/game.h
         map/game.cpp
         app_runner/buttons.h
-        app_runner/buttons.cpp
+        states/state.h
+        states/OnKeyPressed.cpp
+        states/Application.cpp
+        states/DrawingStarted.cpp
 )
 
 # Use this bad boy to create your own quests:
